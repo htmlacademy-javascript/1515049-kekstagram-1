@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Наталья Романова](https://up.htmlacademy.ru/javascript-individual/1/user/1515049).
-* Наставник: `Неизвестно`.
+* Наставник: [Сергей Остаповец](https://htmlacademy.ru/profile/id288419).
 
 ---
 
