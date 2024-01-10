@@ -1,10 +1,10 @@
 const isPalindrom = (string) => {
   if (string
-      .toLowerCase()
-      .replaceAll(' ', '')
-      .split('').reverse()
-      .join('')
-      .trim()
+    .toLowerCase()
+    .replaceAll(' ', '')
+    .split('').reverse()
+    .join('')
+    .trim()
     === string
       .toLowerCase()
       .replaceAll(' ', '')
@@ -14,7 +14,7 @@ const isPalindrom = (string) => {
   return false;
 };
 
-// console.log(isPalindrom('топот'));
+isPalindrom('топот');
 // console.log(isPalindrom('ДовОд'));
 // console.log(isPalindrom('Кекс'));
 // console.log(isPalindrom('Лёша на полке клопа нашёл '));
@@ -40,7 +40,7 @@ const extractsNumbersFromString = (string) => {
   return parseInt(numbers, 10);
 };
 
-// console.log(extractsNumbersFromString('2023 год'));
+extractsNumbersFromString('2023 год');
 // console.log(extractsNumbersFromString('ECMAScript 2022'));
 // console.log(extractsNumbersFromString('1 кефир, 0.5 батона'));
 // console.log(extractsNumbersFromString('агент 007'));
@@ -61,7 +61,7 @@ const padStringToLength = (string, length, symbols) => {
   return paddedString;
 };
 
-// console.log(padStringToLength('1', 2, '0')); // '01'
+padStringToLength('1', 2, '0'); // '01'
 // console.log(padStringToLength('1', 4, '0')); // '0001'
 // console.log(padStringToLength('q', 4, 'werty')); // 'werq'
 // console.log(padStringToLength('q', 4, 'we')); // 'wweq' у меня выводится 'wewq'
@@ -74,6 +74,6 @@ const checkingStringLength = (string, length) => {
   return false;
 };
 
-// console.log(checkingStringLength('проверяемая строка', 20)); // true
+checkingStringLength('проверяемая строка', 20); // true
 // console.log(checkingStringLength('проверяемая строка', 18)); // true
 // console.log(checkingStringLength('проверяемая строка', 10)); // false
