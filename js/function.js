@@ -66,3 +66,14 @@ const padStringToLength = (string, length, symbols) => {
 // console.log(padStringToLength('q', 4, 'werty')); // 'werq'
 // console.log(padStringToLength('q', 4, 'we')); // 'wweq' у меня выводится 'wewq'
 // console.log(padStringToLength('qwerty', 4, '0')); // 'qwerty'
+
+const checkingStringLength = (string, length) => {
+  if (string.length <= length) {
+    return true;
+  }
+  return false;
+};
+
+// console.log(checkingStringLength('проверяемая строка', 20)); // true
+// console.log(checkingStringLength('проверяемая строка', 18)); // true
+// console.log(checkingStringLength('проверяемая строка', 10)); // false
