@@ -1,17 +1,7 @@
 const isPalindrom = (string) => {
-  if (string
-    .toLowerCase()
-    .replaceAll(' ', '')
-    .split('').reverse()
-    .join('')
-    .trim()
-    === string
-      .toLowerCase()
-      .replaceAll(' ', '')
-      .trim()) {
-    return true;
-  }
-  return false;
+  string = string.trim().toLowerCase().replaceAll(' ', '');
+  const expandedString = string.split('').reverse().join('');
+  return expandedString === string;
 };
 
 isPalindrom('топот');
@@ -24,7 +14,7 @@ const extractsNumbersFromString = (string) => {
 
   if (!isNaN(string)) {
     numbers = string;
-    numbers = numbers.toString().replaceAll('.', '').replaceAll('-', '').trim();
+    numbers = numbers.toString().replaceAll(/[^0-9]/g, '').trim();
     return parseInt(numbers, 10);
   }
 
@@ -48,13 +38,19 @@ extractsNumbersFromString('2023 год');
 // console.log(extractsNumbersFromString(-1.5));
 
 const padStringToLength = (string, length, symbols) => {
-  let paddedString = '';
+  let paddedString;
   if (string.length < length) {
     const symbolsToAdd = length - string.length;
-    paddedString = symbols.repeat(Math.ceil(symbolsToAdd / symbols.length)).slice(0, symbolsToAdd) + string;
-  }
+    let symbolsChunk = symbols;
 
-  if (string.length >= length) {
+    if (symbols.length > 1 && symbols.length < symbolsToAdd){
+      symbolsChunk = symbolsChunk.slice(0, (symbolsToAdd - symbolsChunk.length)) + symbolsChunk;
+    } else {
+      symbolsChunk = symbols.repeat(Math.ceil(symbolsToAdd / symbols.length)).slice(0, symbolsToAdd);
+    }
+
+    paddedString = symbolsChunk + string;
+  } else {
     paddedString = string;
   }
 
@@ -64,15 +60,10 @@ const padStringToLength = (string, length, symbols) => {
 padStringToLength('1', 2, '0'); // '01'
 // console.log(padStringToLength('1', 4, '0')); // '0001'
 // console.log(padStringToLength('q', 4, 'werty')); // 'werq'
-// console.log(padStringToLength('q', 4, 'we')); // 'wweq' у меня выводится 'wewq'
+// console.log(padStringToLength('q', 4, 'we')); // 'wweq'
 // console.log(padStringToLength('qwerty', 4, '0')); // 'qwerty'
 
-const checkingStringLength = (string, length) => {
-  if (string.length <= length) {
-    return true;
-  }
-  return false;
-};
+const checkingStringLength = (string, length) => string.length <= length;
 
 checkingStringLength('проверяемая строка', 20); // true
 // console.log(checkingStringLength('проверяемая строка', 18)); // true
