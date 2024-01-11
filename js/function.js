@@ -13,9 +13,8 @@ const extractsNumbersFromString = (string) => {
   let numbers = '';
 
   if (!isNaN(string)) {
-    numbers = string;
-    numbers = numbers.toString().replaceAll(/[^0-9]/g, '').trim();
-    return parseInt(numbers, 10);
+    string = string.toString().replaceAll(/[^0-9]/g, '').trim();
+    return parseInt(string, 10);
   }
 
   for (const i in string) {
@@ -42,13 +41,10 @@ const padStringToLength = (string, length, symbols) => {
   if (string.length < length) {
     const symbolsToAdd = length - string.length;
     let symbolsChunk = symbols;
-
-    if (symbols.length > 1 && symbols.length < symbolsToAdd){
+    while (symbolsChunk.length + string.length < length) {
       symbolsChunk = symbolsChunk.slice(0, (symbolsToAdd - symbolsChunk.length)) + symbolsChunk;
-    } else {
-      symbolsChunk = symbols.repeat(Math.ceil(symbolsToAdd / symbols.length)).slice(0, symbolsToAdd);
     }
-
+    symbolsChunk = symbolsChunk.slice(0, symbolsToAdd);
     paddedString = symbolsChunk + string;
   } else {
     paddedString = string;
