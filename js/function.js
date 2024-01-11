@@ -37,16 +37,10 @@ extractsNumbersFromString('2023 год');
 // console.log(extractsNumbersFromString(-1.5));
 
 const padStringToLength = (string, length, symbols) => {
-  if (string.length < length) {
-    const symbolsToAdd = length - string.length;
-    while (symbols.length + string.length < length) {
-      symbols = symbols.slice(0, (symbolsToAdd - symbols.length)) + symbols;
-    }
-    string = symbols.slice(0, symbolsToAdd) + string;
-  } else {
-    return string;
+  while (symbols.length + string.length < length) {
+    symbols = symbols.slice(0, ((length - string.length) - symbols.length)) + symbols;
   }
-  return string;
+  return symbols.slice(0, (length - string.length)) + string;
 };
 
 padStringToLength('1', 2, '0'); // '01'
