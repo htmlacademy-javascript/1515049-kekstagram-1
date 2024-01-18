@@ -1,3 +1,5 @@
+const PHOTOS_ARR_LEN = 25;
+
 const NAMES = [
   'Александр',
   'Елена',
@@ -48,8 +50,6 @@ const DESCRIPTIONS = [
   'Зимний пейзаж',
 ];
 
-const PHOTOS_ARR_LEN = 25;
-
 const IdComments = {
   MIN: 1,
   MAX: 500,
@@ -72,34 +72,33 @@ const getRandomNum = (min, max) => {
   return Math.floor(result);
 };
 
-const createCommentsArr = () => {
-  const comments = [];
-  for (let i = 0; i < getRandomNum(Comments.MIN, Comments.MAX); i++) {
-    const newComment = {
-      id: getRandomNum(IdComments.MIN, IdComments.MAX),
-      avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
-      message: `${MESSAGES[getRandomNum(0, MESSAGES.length - 1)]}`,
-      name: `${NAMES[getRandomNum(0, NAMES.length - 1)]}`,
-    };
-    comments.push(newComment);
+const getRandomMessages = () => {
+  const uniqueMessagesSet = new Set();
+
+  while (uniqueMessagesSet.size < (getRandomNum(1, 2))) {
+    uniqueMessagesSet.add(MESSAGES[getRandomNum(0, MESSAGES.length - 1)]);
   }
-  return comments;
+  return Array.from(uniqueMessagesSet).join(' ');
 };
 
-const createPhotos = () => {
-  const photos = [];
-  for (let i = 1; i <= PHOTOS_ARR_LEN; i++) {
-    const newPhoto = {
-      id: i,
-      url: `photos/${i}.jpg`,
-      description: DESCRIPTIONS[getRandomNum(0, DESCRIPTIONS.length - 1)],
-      likes: getRandomNum(Likes.MIN, Likes.MAX),
-      comments: createCommentsArr(),
-    };
-    photos.push(newPhoto);
-  }
-  return photos;
-};
+const createCommentsArr = () => ({
+  id: getRandomNum(IdComments.MIN, IdComments.MAX),
+  avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
+  message: getRandomMessages(),
+  name: `${NAMES[getRandomNum(0, NAMES.length - 1)]}`,
+});
 
-createPhotos();
-// console.log(createPhotos());
+const createPhotos = (id) => ({
+  id: id,
+  url: `photos/${id}.jpg`,
+  description: DESCRIPTIONS[getRandomNum(0, DESCRIPTIONS.length - 1)],
+  likes: getRandomNum(Likes.MIN, Likes.MAX),
+  comments: Array.from({length: (getRandomNum(Comments.MIN, Comments.MAX))}, createCommentsArr),
+});
+
+// ниже должна создаваться переменная photos, в которую записывается созданный массив фотографий. Но eslint не пропускает ни неиспользуемую переменную, ни console.log. Поэтому оставляю так
+
+// const photos = Array.from({length: PHOTOS_ARR_LEN}, (elem, index) => createPhotos(index + 1));
+// console.log(photos);
+
+Array.from({length: PHOTOS_ARR_LEN}, (elem, index) => createPhotos(index + 1));
