@@ -81,19 +81,12 @@ const getRandomMessages = () => {
   return Array.from(uniqueMessagesSet).join(' ');
 };
 
-const createCommentsArr = () => {
-  const comments = [];
-  for (let i = 0; i < getRandomNum(Comments.MIN, Comments.MAX); i++) {
-    const newComment = {
-      id: getRandomNum(IdComments.MIN, IdComments.MAX),
-      avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
-      message: getRandomMessages(),
-      name: `${NAMES[getRandomNum(0, NAMES.length - 1)]}`,
-    };
-    comments.push(newComment);
-  }
-  return comments;
-};
+const createCommentsArr = () => ({
+  id: getRandomNum(IdComments.MIN, IdComments.MAX),
+  avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
+  message: getRandomMessages(),
+  name: `${NAMES[getRandomNum(0, NAMES.length - 1)]}`,
+});
 
 const createPhotos = () => {
   const photos = [];
@@ -103,7 +96,7 @@ const createPhotos = () => {
       url: `photos/${i}.jpg`,
       description: DESCRIPTIONS[getRandomNum(0, DESCRIPTIONS.length - 1)],
       likes: getRandomNum(Likes.MIN, Likes.MAX),
-      comments: createCommentsArr(),
+      comments: Array.from({length: (getRandomNum(Comments.MIN, Comments.MAX))}, createCommentsArr),
     };
     photos.push(newPhoto);
   }
