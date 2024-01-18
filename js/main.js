@@ -72,13 +72,22 @@ const getRandomNum = (min, max) => {
   return Math.floor(result);
 };
 
+const getRandomMessages = () => {
+  const uniqueMessagesSet = new Set();
+
+  while (uniqueMessagesSet.size < (getRandomNum(1, 2))) {
+    uniqueMessagesSet.add(MESSAGES[getRandomNum(0, MESSAGES.length - 1)]);
+  }
+  return Array.from(uniqueMessagesSet).join(' ');
+};
+
 const createCommentsArr = () => {
   const comments = [];
   for (let i = 0; i < getRandomNum(Comments.MIN, Comments.MAX); i++) {
     const newComment = {
       id: getRandomNum(IdComments.MIN, IdComments.MAX),
       avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
-      message: `${MESSAGES[getRandomNum(0, MESSAGES.length - 1)]}`,
+      message: getRandomMessages(),
       name: `${NAMES[getRandomNum(0, NAMES.length - 1)]}`,
     };
     comments.push(newComment);
@@ -102,4 +111,4 @@ const createPhotos = () => {
 };
 
 createPhotos();
-// console.log(createPhotos());
+console.log(createPhotos());
