@@ -1,4 +1,4 @@
-import { getRandomNum } from './function.js';
+import { getRandomNum } from './utils.js';
 
 const PHOTOS_ARR_LEN = 25;
 
@@ -111,6 +111,6 @@ const createPost = (id) => ({
   comments: Array.from({length: (getRandomNum(Comments.MIN, Comments.MAX))}, (_, index) => createCommentsArr(index + 1)),
 });
 
-const photos = () => Array.from({length: PHOTOS_ARR_LEN}, (elem, index) => createPost(index + 1));
+const getPhotos = () => Array.from({length: PHOTOS_ARR_LEN}, (_, index) => createPost(index + 1));
 
-export { photos };
+export { getPhotos };
