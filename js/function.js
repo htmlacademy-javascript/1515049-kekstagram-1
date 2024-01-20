@@ -1,3 +1,8 @@
+/**
+ * Определяет является ли палиндромом переданная строка
+ * @param string
+ * @returns {boolean}
+ */
 const isPalindrom = (string) => {
   string = string.trim().toLowerCase().replaceAll(' ', '');
   const expandedString = string.split('').reverse().join('');
@@ -5,10 +10,12 @@ const isPalindrom = (string) => {
 };
 
 isPalindrom('топот');
-// console.log(isPalindrom('ДовОд'));
-// console.log(isPalindrom('Кекс'));
-// console.log(isPalindrom('Лёша на полке клопа нашёл '));
 
+/**
+ * Возвращает число из строки
+ * @param string
+ * @returns {number}
+ */
 const extractsNumbersFromString = (string) => {
   let numbers = '';
 
@@ -30,12 +37,14 @@ const extractsNumbersFromString = (string) => {
 };
 
 extractsNumbersFromString('2023 год');
-// console.log(extractsNumbersFromString('ECMAScript 2022'));
-// console.log(extractsNumbersFromString('1 кефир, 0.5 батона'));
-// console.log(extractsNumbersFromString('агент 007'));
-// console.log(extractsNumbersFromString('а я томат'));
-// console.log(extractsNumbersFromString(-1.5));
 
+/**
+ * Дополняет строку заданными символами до заданной длины
+ * @param string
+ * @param length
+ * @param symbols
+ * @returns {*}
+ */
 const padStringToLength = (string, length, symbols) => {
   while (symbols.length + string.length < length) {
     symbols = symbols.slice(0, ((length - string.length) - symbols.length)) + symbols;
@@ -43,14 +52,29 @@ const padStringToLength = (string, length, symbols) => {
   return symbols.slice(0, (length - string.length)) + string;
 };
 
-padStringToLength('1', 2, '0'); // '01'
-// console.log(padStringToLength('1', 4, '0')); // '0001'
-// console.log(padStringToLength('q', 4, 'werty')); // 'werq'
-// console.log(padStringToLength('q', 4, 'we')); // 'wweq'
-// console.log(padStringToLength('qwerty', 4, '0')); // 'qwerty'
+padStringToLength('1', 2, '0');
 
+/**
+ * Проверяет соответствие длины строки заданному значению
+ * @param string
+ * @param length
+ * @returns {boolean}
+ */
 const checkingStringLength = (string, length) => string.length <= length;
 
-checkingStringLength('проверяемая строка', 20); // true
-// console.log(checkingStringLength('проверяемая строка', 18)); // true
-// console.log(checkingStringLength('проверяемая строка', 10)); // false
+checkingStringLength('проверяемая строка', 20);
+
+/**
+ * Возвращает случайное число из заданного диапазона
+ * @param min
+ * @param max
+ * @returns {number}
+ */
+const getRandomNum = (min, max) => {
+  const lower = Math.ceil(Math.min(min, max));
+  const upper = Math.floor(Math.max(min, max));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+export { getRandomNum };
