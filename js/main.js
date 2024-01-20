@@ -1,3 +1,3 @@
-import { getPhotos } from './data.js';
+import { drawsThumbnails } from './draws-thumbnails.js';
 
-getPhotos();
+drawsThumbnails();

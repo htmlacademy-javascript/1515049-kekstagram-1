@@ -111,6 +111,6 @@ const createPost = (id) => ({
   comments: Array.from({length: (getRandomNum(Comments.MIN, Comments.MAX))}, (_, index) => createCommentsArr(index + 1)),
 });
 
-const getPhotos = () => Array.from({length: PHOTOS_ARR_LEN}, (_, index) => createPost(index + 1));
+const createPhotos = () => Array.from({length: PHOTOS_ARR_LEN}, (_, index) => createPost(index + 1));
 
-export { getPhotos };
+export { createPhotos };
