@@ -77,4 +77,11 @@ const getRandomNum = (min, max) => {
   return Math.floor(result);
 };
 
-export { getRandomNum };
+/**
+ * Проверяет, является ли нажатая клавиша клавишей Esc
+ * @param evt
+ * @returns {boolean}
+ */
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getRandomNum, isEscapeKey };
