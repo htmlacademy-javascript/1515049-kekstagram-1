@@ -1,6 +1,6 @@
 import { isEscapeKey } from './utils.js';
 import { renderFullSizePhoto } from './draws-full-size-photo.js';
-import { createPhotos } from './data.js';
+import { thumbnailsPhoto as allPhotos } from './draws-thumbnails.js';
 
 const drawingFullSizePhotoElement = document.querySelector('.big-picture');
 const drawingFullSizePhotoOpenElement = document.querySelector('.pictures');
@@ -23,7 +23,7 @@ const openFullSizePhoto = (evt) => {
     evt.preventDefault();
     drawingFullSizePhotoElement.classList.remove('hidden');
     const thumbnailId = Number(fullSizePhotoElementLink.id);
-    const allPhotos = createPhotos();
+
     const selectedThumbnail = allPhotos.find((photo) => photo.id === thumbnailId);
 
     if (selectedThumbnail) {
