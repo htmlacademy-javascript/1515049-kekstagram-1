@@ -59,7 +59,7 @@ const DESCRIPTIONS = [
 
 const Comments = {
   MIN: 1,
-  MAX: 5,
+  MAX: 15,
 };
 
 const Likes = {

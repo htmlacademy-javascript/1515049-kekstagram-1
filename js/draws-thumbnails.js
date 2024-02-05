@@ -1,12 +1,12 @@
 import { createPhotos } from './data.js';
 
+
+const thumbnailsPhoto = createPhotos();
 const drawsThumbnails = () => {
   const pictureTemplate = document.querySelector('#picture');
   const picturesContainer = document.querySelector('.pictures');
 
   const thumbnailPhotoFragment = document.createDocumentFragment();
-
-  const thumbnailsPhoto = createPhotos();
 
   thumbnailsPhoto.forEach(({id, url, likes, comments}) => {
     const pictureTemplateElement = pictureTemplate.cloneNode(true).content;
@@ -21,4 +21,4 @@ const drawsThumbnails = () => {
   picturesContainer.appendChild(thumbnailPhotoFragment);
 };
 
-export { drawsThumbnails };
+export { drawsThumbnails, thumbnailsPhoto };
