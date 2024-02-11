@@ -1,3 +1,15 @@
+const Keys = {
+  ESC: 'Esc',
+  ESCAPE: 'Escape',
+};
+
+/**
+ * Проверяет, является ли нажатая клавиша клавишей Esc
+ * @param evt
+ * @returns {boolean}
+ */
+const isEscapeKey = (evt) => evt.key === Keys.ESCAPE || evt.key === Keys.ESC;
+
 /**
  * Определяет является ли палиндромом переданная строка
  * @param string
@@ -76,12 +88,5 @@ const getRandomNum = (min, max) => {
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
-
-/**
- * Проверяет, является ли нажатая клавиша клавишей Esc
- * @param evt
- * @returns {boolean}
- */
-const isEscapeKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 export { getRandomNum, isEscapeKey };
