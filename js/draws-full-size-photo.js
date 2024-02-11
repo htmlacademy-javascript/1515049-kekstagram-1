@@ -33,7 +33,7 @@ const renderFullSizePhoto = (id, url, likes, comments, description) => {
 
   bigPicturePreview.querySelector('.big-picture__img img').src = url;
   bigPicturePreview.querySelector('.likes-count').textContent = likes;
-  socialCommentCount.innerHTML = `${comments.length <= COMMENTS_PER_PAGE ? comments.length : COMMENTS_PER_PAGE} из <span class="comments-count"></span> комментариев`;
+  bigPicturePreview.querySelector('.showing-comments').textContent = `${comments.length <= COMMENTS_PER_PAGE ? comments.length : COMMENTS_PER_PAGE}`;
   bigPicturePreview.querySelector('.comments-count').textContent = comments.length;
   bigPicturePreview.querySelector('.social__comments').innerHTML = '';
   bigPicturePreview.querySelector('.social__caption').textContent = description;
@@ -65,7 +65,7 @@ const renderFullSizePhoto = (id, url, likes, comments, description) => {
     const newComments = showComments(startIndex, endIndex);
     comments.concat(newComments);
 
-    socialCommentCount.innerHTML = `${endIndex} из <span class="comments-count">${comments.length}</span> комментариев`;
+    socialCommentCount.querySelector('.showing-comments').textContent = `${endIndex}`;
 
     if (endIndex >= comments.length) {
       commentsLoader.classList.add('hidden');
