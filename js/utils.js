@@ -82,6 +82,6 @@ const getRandomNum = (min, max) => {
  * @param evt
  * @returns {boolean}
  */
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 export { getRandomNum, isEscapeKey };

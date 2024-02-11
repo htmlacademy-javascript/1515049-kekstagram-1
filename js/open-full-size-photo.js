@@ -20,7 +20,9 @@ const openFullSizePhoto = (evt) => {
   const fullSizePhotoElementLink = fullSizePhotoElement.closest('.picture');
 
   if (fullSizePhotoElementLink) {
-    evt.preventDefault();
+    if (!evt.defaultPrevented) {
+      evt.preventDefault();
+    }
     drawingFullSizePhotoElement.classList.remove('hidden');
     const thumbnailId = Number(fullSizePhotoElementLink.id);
 

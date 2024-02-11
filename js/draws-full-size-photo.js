@@ -85,7 +85,7 @@ const showComments = (comments, startIndex, endIndex) => {
   const socialCommentCount = document.querySelector('.social__comment-count');
   const commentsLoader = document.querySelector('.comments-loader');
 
-  socialCommentCount.querySelector('.showing-comments').textContent = `${comments.length <= COMMENTS_PER_PAGE ? comments.length : COMMENTS_PER_PAGE}`;
+  socialCommentCount.querySelector('.showing-comments').textContent = Math.min(endIndex, comments.length).toString();
   socialCommentCount.querySelector('.comments-count').textContent = comments.length;
 
   if (comments.length <= endIndex) {
