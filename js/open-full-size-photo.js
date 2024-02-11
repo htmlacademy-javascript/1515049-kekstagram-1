@@ -43,7 +43,7 @@ const closeFullSizePhoto = () => {
   document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
 };
 
-const openBigPhoto = () => drawingFullSizePhotoOpenElement.addEventListener('click', openFullSizePhoto);
-const closeBigPhoto = () => drawingFullSizePhotoCloseElement.addEventListener('click', closeFullSizePhoto);
+drawingFullSizePhotoOpenElement.addEventListener('click', openFullSizePhoto);
+drawingFullSizePhotoCloseElement.addEventListener('click', closeFullSizePhoto);
 
-export { openBigPhoto, closeBigPhoto };
+export { onFullSizePhotoEscKeydown };

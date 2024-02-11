@@ -1,4 +1,5 @@
 import { isEscapeKey } from './utils.js';
+import { onFullSizePhotoEscKeydown } from './open-full-size-photo.js';
 
 const uploadFileModal = document.querySelector('.img-upload__overlay');
 const controlUploadFile = document.querySelector('#upload-file');
@@ -15,6 +16,7 @@ const onUploadFileModalEscKeydown = (evt) => {
       evt.preventDefault();
     }
     if (isHashtagInputOnFocus() || isCommentInputOnFocus()) {
+      document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
       evt.stopPropagation();
     } else {
       // eslint-disable-next-line no-use-before-define
@@ -23,6 +25,7 @@ const onUploadFileModalEscKeydown = (evt) => {
   }
 };
 const openModal = () => {
+  document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
   document.body.classList.add('modal-open');
   uploadFileModal.classList.remove('hidden');
 
@@ -37,9 +40,6 @@ const closeModal = () => {
   document.removeEventListener('keydown', onUploadFileModalEscKeydown);
 };
 
-const openUploadFileModal = () => controlUploadFile.addEventListener('change', openModal);
-const closeUploadFileModal = () => resetButton.addEventListener('click', closeModal);
+controlUploadFile.addEventListener('change', openModal);
+resetButton.addEventListener('click', closeModal);
 
-export { openUploadFileModal, closeUploadFileModal };
-
-// TODO поправить нажатие на esc при фокусе на инпутах. Сейчас теряется класс на body и появляется скрол
