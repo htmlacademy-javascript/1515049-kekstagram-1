@@ -24,8 +24,12 @@ const slider = uploadFileModal.querySelector('.img-upload__effect-level');
 // const selectedLabel = uploadFileModal.querySelector(`label[for="${selectedRadioInput.id}"]`);
 // const selectedLabelText = selectedLabel.textContent.trim();
 
-let scale = 100;
+let scale = Scale.MAX;
 
+/**
+ * Изменение масштаба изображения в окне загрузки
+ * @param value
+ */
 const changeScale = (value) => {
   scale += value;
   if (scale < Scale.MIN) {
@@ -46,6 +50,12 @@ biggerButton.addEventListener('click', () => {
   changeScale(+`${SCALE_STEP}`);
 });
 
+const applyingEffectImage = (input) => {
+  const effectClasses = Array.from(imgPreview.classList).filter((className) => className.startsWith('effects__preview--'));
+  imgPreview.classList.remove(...effectClasses);
+  imgPreview.classList.add(`effects__preview--${input.value}`);
+};
+
 effectsList.addEventListener('click', (evt) => {
   const input = evt.target.closest('input');
   const selectedRadioInput = uploadFileModal.querySelector('input[name="effect"]:checked');
@@ -56,6 +66,7 @@ effectsList.addEventListener('click', (evt) => {
     } else {
       slider.classList.remove('hidden');
     }
+    applyingEffectImage(input);
   }
 });
 const isHashtagInputOnFocus = () => document.activeElement === hashtagInput;
@@ -107,6 +118,10 @@ const closeModal = () => {
   document.body.classList.remove('modal-open');
   uploadFileModal.classList.add('hidden');
   controlUploadFile.value = '';
+  imgPreview.className = '';
+  scale = Scale.MAX;
+  scaleValue.value = scale;
+  imgPreview.style = '';
 
   document.removeEventListener('keydown', onUploadFileModalEscKeydown);
 };
