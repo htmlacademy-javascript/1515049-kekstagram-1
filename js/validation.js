@@ -1,10 +1,8 @@
 const MAX_SYMBOLS = 20;
 const MAX_HASHTAGS = 5;
-const MAX_COMMENT_LENGTH = 140;
 
 const form = document.querySelector('.img-upload__form');
 const textHashtags = form.querySelector('.text__hashtags');
-// const textDescription = document.querySelector('.text__description');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -52,14 +50,7 @@ const validateHashTags = (value) => {
   return true;
 };
 
-// не повторяются
-
-
-const getValidateMessage = () => {
-  return 'Поле ввода хэштегов не валидно';
-};
-
-pristine.addValidator(textHashtags, validateHashTags, getValidateMessage);
+pristine.addValidator(textHashtags, validateHashTags, 'Поле ввода хэштегов не валидно');
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
