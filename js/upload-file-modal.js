@@ -9,6 +9,7 @@ const Scale = {
 
 const uploadFileModal = document.querySelector('.img-upload__overlay');
 const controlUploadFile = document.querySelector('#upload-file');
+
 const resetButton = uploadFileModal.querySelector('#upload-cancel');
 const hashtagInput = uploadFileModal.querySelector('.text__hashtags');
 const commentInput = uploadFileModal.querySelector('.text__description');
@@ -18,11 +19,7 @@ const smallerButton = uploadFileModal.querySelector('.scale__control--smaller');
 const biggerButton = uploadFileModal.querySelector('.scale__control--bigger');
 const scaleValue = uploadFileModal.querySelector('.scale__control--value');
 const imgPreview = uploadFileModal.querySelector('.img-upload__preview img');
-// const effectsPreviewChrome = uploadFileModal.querySelector('.effects__preview--chrome');
 const slider = uploadFileModal.querySelector('.img-upload__effect-level');
-
-// const selectedLabel = uploadFileModal.querySelector(`label[for="${selectedRadioInput.id}"]`);
-// const selectedLabelText = selectedLabel.textContent.trim();
 
 let scale = Scale.MAX;
 
@@ -50,6 +47,10 @@ biggerButton.addEventListener('click', () => {
   changeScale(+`${SCALE_STEP}`);
 });
 
+/**
+ * добавляет эффекты к фото по кликам на миниатюры
+ * @param input
+ */
 const applyingEffectImage = (input) => {
   const effectClasses = Array.from(imgPreview.classList).filter((className) => className.startsWith('effects__preview--'));
   imgPreview.classList.remove(...effectClasses);
@@ -79,9 +80,7 @@ const isEffectPreviewNoneOnFocus = () => document.activeElement === effectPrevie
  */
 const onUploadFileModalEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    if (!evt.defaultPrevented) {
-      evt.preventDefault();
-    }
+    evt.preventDefault();
     if (isHashtagInputOnFocus() || isCommentInputOnFocus()) {
       // Без следующей строки при нажатии esc с фокусом на инпуте исчезает класс с body и появляется скролл
       document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
@@ -93,12 +92,16 @@ const onUploadFileModalEscKeydown = (evt) => {
   }
 };
 
+if (isHashtagInputOnFocus() || isCommentInputOnFocus()) {
+  // Без следующей строки при нажатии esc с фокусом на инпуте исчезает класс с body и появляется скролл
+  document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
+}
+// TODO после добавления if выше, скролл на body появляется только пре первом нажатии esc при фокусе на инпут. Разобраться.
+
 /**
  * Открытие окна загрузки фото
  */
 const openModal = () => {
-  // Без следующей строки при нажатии esc с фокусом на инпуте исчезает класс с body и появляется скролл
-  document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
   document.body.classList.add('modal-open');
   uploadFileModal.classList.remove('hidden');
 
@@ -128,4 +131,3 @@ const closeModal = () => {
 
 controlUploadFile.addEventListener('change', openModal);
 resetButton.addEventListener('click', closeModal);
-
