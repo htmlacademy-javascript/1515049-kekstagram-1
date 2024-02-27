@@ -1,4 +1,4 @@
-import { isEscapeKey } from './utils.js';
+import { addDocumentEscListener, isEscapeKey, removeDocumentEscListener } from './utils.js';
 import { renderFullSizePhoto } from './draws-full-size-photo.js';
 import { thumbnailsPhoto as allPhotos } from './draws-thumbnails.js';
 
@@ -6,7 +6,7 @@ const drawingFullSizePhotoElement = document.querySelector('.big-picture');
 const drawingFullSizePhotoOpenElement = document.querySelector('.pictures');
 const drawingFullSizePhotoCloseElement = document.querySelector('.big-picture__cancel');
 
-const onFullSizePhotoEscKeydown = (evt) => {
+const handleDocumentEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     // eslint-disable-next-line no-use-before-define
@@ -33,17 +33,15 @@ const openFullSizePhoto = (evt) => {
     }
   }
 
-  document.addEventListener('keydown', onFullSizePhotoEscKeydown);
+  addDocumentEscListener(handleDocumentEscKeydown);
 };
 
 const closeFullSizePhoto = () => {
   document.body.classList.remove('modal-open');
   drawingFullSizePhotoElement.classList.add('hidden');
 
-  document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
+  removeDocumentEscListener(handleDocumentEscKeydown);
 };
 
 drawingFullSizePhotoOpenElement.addEventListener('click', openFullSizePhoto);
 drawingFullSizePhotoCloseElement.addEventListener('click', closeFullSizePhoto);
-
-export { onFullSizePhotoEscKeydown };

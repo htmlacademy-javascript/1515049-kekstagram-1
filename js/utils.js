@@ -11,6 +11,21 @@ const Keys = {
 const isEscapeKey = (evt) => evt.key === Keys.ESCAPE || evt.key === Keys.ESC;
 
 /**
+ * Добавление обработчика события нажатия клавиши Escape к документу
+ */
+const addDocumentEscListener = (handler) => {
+  document.addEventListener('keydown', handler);
+};
+
+/**
+ * Удаление обработчика события нажатия клавиши Escape с документа
+ * @param handler обработчик события нажатия клавиши Escape
+ */
+const removeDocumentEscListener = (handler) => {
+  document.addEventListener('keydown', handler);
+};
+
+/**
  * Создаёт элемент с классом
  * @param element тег, который необходимо создать
  * @param className имя класса для создаваемого тега
@@ -101,4 +116,4 @@ const getRandomNum = (min, max) => {
   return Math.floor(result);
 };
 
-export { getRandomNum, isEscapeKey, createElementAndAddClass };
+export { getRandomNum, isEscapeKey, createElementAndAddClass, addDocumentEscListener, removeDocumentEscListener };

@@ -1,5 +1,4 @@
-import { isEscapeKey } from './utils.js';
-import { onFullSizePhotoEscKeydown } from './open-full-size-photo.js';
+import { isEscapeKey, addDocumentEscListener, removeDocumentEscListener } from './utils.js';
 
 const SCALE_STEP = 25;
 const Scale = {
@@ -22,9 +21,8 @@ const imgPreview = uploadFileModal.querySelector('.img-upload__preview img');
 const slider = uploadFileModal.querySelector('.img-upload__effect-level');
 
 let scale = Scale.MAX;
+let isInputOrTextareaFocused = false;
 
-const isHashtagInputOnFocus = () => document.activeElement === hashtagInput;
-const isCommentInputOnFocus = () => document.activeElement === commentInput;
 const isEffectPreviewNoneOnFocus = () => document.activeElement === effectPreviewNone;
 
 /**
@@ -57,27 +55,14 @@ const applyingEffectImage = (input) => {
  * Обработчик события нажатия клавиши Escape на документе
  * @param evt
  */
-const onUploadFileModalEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+const handleDocumentEscKeydown = (evt) => {
+  document.body.classList.add('modal-open');
+  if (isEscapeKey(evt) && !isInputOrTextareaFocused) {
     evt.preventDefault();
-    if (isHashtagInputOnFocus() || isCommentInputOnFocus()) {
-      // Без следующей строки при нажатии esc с фокусом на инпуте исчезает класс с body и появляется скролл
-      document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
-      document.removeEventListener('keydown', onUploadFileModalEscKeydown);
-      evt.stopPropagation();
-    } else {
-      // eslint-disable-next-line no-use-before-define
-      closeModal();
-    }
+    // eslint-disable-next-line no-use-before-define
+    closeModal();
   }
 };
-
-if (isHashtagInputOnFocus() || isCommentInputOnFocus()) {
-  // Без следующей строки при нажатии esc с фокусом на инпуте исчезает класс с body и появляется скролл
-  document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
-  document.removeEventListener('keydown', onUploadFileModalEscKeydown);
-}
-// TODO после добавления if выше, скролл на body появляется только пре первом нажатии esc при фокусе на инпут. Разобраться.
 
 /**
  * Открытие окна загрузки фото
@@ -92,7 +77,7 @@ const openModal = () => {
     slider.classList.add('hidden');
   }
 
-  document.addEventListener('keydown', onUploadFileModalEscKeydown);
+  addDocumentEscListener(handleDocumentEscKeydown);
 };
 
 /**
@@ -107,7 +92,7 @@ const closeModal = () => {
   scaleValue.value = scale;
   imgPreview.style = '';
 
-  document.removeEventListener('keydown', onUploadFileModalEscKeydown);
+  removeDocumentEscListener(handleDocumentEscKeydown);
 };
 
 /**
@@ -142,8 +127,20 @@ const handleZoomingIn = () => {
   changeScale(+`${SCALE_STEP}`);
 };
 
+const handleFocusInputOrTextarea = () => {
+  isInputOrTextareaFocused = true;
+};
+
+const handleBlurInputOrTextarea = () => {
+  isInputOrTextareaFocused = false;
+};
+
 smallerButton.addEventListener('click', handleZoomingOut);
 biggerButton.addEventListener('click', handleZoomingIn);
 effectsList.addEventListener('click', handleApplyEffect);
 controlUploadFile.addEventListener('change', openModal);
 resetButton.addEventListener('click', closeModal);
+hashtagInput.addEventListener('focus', handleFocusInputOrTextarea);
+hashtagInput.addEventListener('blur', handleBlurInputOrTextarea);
+commentInput.addEventListener('focus', handleFocusInputOrTextarea);
+commentInput.addEventListener('blur', handleBlurInputOrTextarea);
