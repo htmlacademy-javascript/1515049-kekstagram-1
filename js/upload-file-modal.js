@@ -6,10 +6,10 @@ const Scale = {
   MAX: 100,
 };
 
+const body = document.querySelector('body');
 const uploadFileModal = document.querySelector('.img-upload__overlay');
 const controlUploadFile = document.querySelector('#upload-file');
-
-const resetButton = uploadFileModal.querySelector('#upload-cancel');
+const resetButton = uploadFileModal.querySelector('.img-upload__cancel');
 const hashtagInput = uploadFileModal.querySelector('.text__hashtags');
 const commentInput = uploadFileModal.querySelector('.text__description');
 const effectsList = uploadFileModal.querySelector('.effects__list');
@@ -31,8 +31,11 @@ const formStateDefault = () => {
   scale = Scale.MAX;
   scaleValue.value = scale;
   imgPreview.style = '';
+  isEffectPreviewNoneOnFocus();
+  if (isEffectPreviewNoneOnFocus) {
+    slider.classList.add('hidden');
+  }
 };
-
 
 /**
  * Изменение масштаба изображения в окне загрузки
@@ -110,14 +113,9 @@ const handleDocumentEscKeydown = (evt) => {
  * Открытие окна загрузки фото
  */
 const openModal = () => {
-  document.body.classList.add('modal-open');
+  formStateDefault();
+  body.classList.add('modal-open');
   uploadFileModal.classList.remove('hidden');
-
-  scaleValue.value = `${scale}%`;
-
-  if (isEffectPreviewNoneOnFocus) {
-    slider.classList.add('hidden');
-  }
 
   addDocumentEscListener(handleDocumentEscKeydown);
 };
@@ -126,9 +124,8 @@ const openModal = () => {
  * Закрытие окна загрузки фото
  */
 const closeModal = () => {
-  document.body.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   uploadFileModal.classList.add('hidden');
-  formStateDefault();
 
   removeDocumentEscListener(handleDocumentEscKeydown);
 };
@@ -141,12 +138,15 @@ const handleBlurInputOrTextarea = () => {
   isInputOrTextareaFocused = false;
 };
 
+controlUploadFile.addEventListener('change', openModal);
 smallerButton.addEventListener('click', handleZoomingOut);
 biggerButton.addEventListener('click', handleZoomingIn);
 effectsList.addEventListener('click', handleApplyEffect);
-controlUploadFile.addEventListener('change', openModal);
 resetButton.addEventListener('click', closeModal);
 hashtagInput.addEventListener('focus', handleFocusInputOrTextarea);
 hashtagInput.addEventListener('blur', handleBlurInputOrTextarea);
 commentInput.addEventListener('focus', handleFocusInputOrTextarea);
 commentInput.addEventListener('blur', handleBlurInputOrTextarea);
+
+
+// TODO: подумать почему не удаляется класс с body при клике на крестик

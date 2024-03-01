@@ -2,6 +2,7 @@ import { addDocumentEscListener, isEscapeKey, removeDocumentEscListener } from '
 import { renderFullSizePhoto } from './draws-full-size-photo.js';
 import { thumbnailsPhoto as allPhotos } from './draws-thumbnails.js';
 
+const body = document.querySelector('body');
 const drawingFullSizePhotoElement = document.querySelector('.big-picture');
 const drawingFullSizePhotoOpenElement = document.querySelector('.pictures');
 const drawingFullSizePhotoCloseElement = document.querySelector('.big-picture__cancel');
@@ -15,14 +16,12 @@ const handleDocumentEscKeydown = (evt) => {
 };
 
 const openFullSizePhoto = (evt) => {
-  document.body.classList.add('modal-open');
   const fullSizePhotoElement = evt.target;
   const fullSizePhotoElementLink = fullSizePhotoElement.closest('.picture');
 
   if (fullSizePhotoElementLink) {
-    if (!evt.defaultPrevented) {
-      evt.preventDefault();
-    }
+    body.classList.add('modal-open');
+    evt.preventDefault();
     drawingFullSizePhotoElement.classList.remove('hidden');
     const thumbnailId = Number(fullSizePhotoElementLink.id);
 
@@ -31,13 +30,12 @@ const openFullSizePhoto = (evt) => {
     if (selectedThumbnail) {
       renderFullSizePhoto(selectedThumbnail.id, selectedThumbnail.url, selectedThumbnail.likes, selectedThumbnail.comments, selectedThumbnail.description);
     }
+    addDocumentEscListener(handleDocumentEscKeydown);
   }
-
-  addDocumentEscListener(handleDocumentEscKeydown);
 };
 
 const closeFullSizePhoto = () => {
-  document.body.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   drawingFullSizePhotoElement.classList.add('hidden');
 
   removeDocumentEscListener(handleDocumentEscKeydown);
