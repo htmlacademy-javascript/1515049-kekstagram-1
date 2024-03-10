@@ -20,6 +20,7 @@ const pristine = new Pristine(form, {
   successClass: 'has-success',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'div',
+  errorTextClass: 'text-help',
 });
 
 let errorMessageText = '';
@@ -30,6 +31,7 @@ const validateHashTags = (value) => {
 
   // поле необязательно к заполнению
   if (hashtagsArray.length === 0) {
+    errorMessageText = '';
     return true;
   }
 
@@ -37,43 +39,40 @@ const validateHashTags = (value) => {
   if (hashtagsArray.length > MAX_HASHTAGS) {
     errorMessageText = ErrorMessages.NUMBER_HASHTAGS;
   } else {
+    errorMessageText = '';
     for (let hashtag of hashtagsArray) {
       hashtag = hashtag.trim();
 
       switch (true) {
-        // Проверка на длину хэштега
-        case (hashtag[0] === '#' && hashtag.length < MIN_SYMBOLS):
-          errorMessageText = ErrorMessages.HASHTAG_MIN_LENGTH;
-          break;
-
-        case (hashtag.length > MAX_SYMBOLS):
-          errorMessageText = ErrorMessages.HASHTAG_MAX_LENGTH;
-          break;
-
         // Проверка на начало с #
         case (hashtag[0] !== '#'):
           errorMessageText = ErrorMessages.FIRST_SYMBOL;
-          break;
+          return false;
+
+        // Проверка на длину хэштега
+        case (hashtag.length < MIN_SYMBOLS):
+          errorMessageText = ErrorMessages.HASHTAG_MIN_LENGTH;
+          return false;
+
+        case (hashtag.length > MAX_SYMBOLS):
+          errorMessageText = ErrorMessages.HASHTAG_MAX_LENGTH;
+          return false;
 
         case (!/^[a-zA-Zа-яА-Я0-9]+$/.test(hashtag.slice(1))):
           errorMessageText = ErrorMessages.HASHTAG_TEMPLATE;
-          break;
+          return false;
 
         // Проверка на повторяющиеся хэштеги
         case (repeatHashtag[hashtag]):
           errorMessageText = ErrorMessages.REPEAT_HASHTAG;
-          break;
+          return false;
 
         default:
           repeatHashtag[hashtag] = true;
       }
-
-      if (errorMessageText) {
-        return false;
-      }
     }
+    return true;
   }
-  return true;
 };
 
 pristine.addValidator(textHashtags, validateHashTags, () => errorMessageText);
@@ -85,3 +84,5 @@ form.addEventListener('submit', (evt) => {
     form.submit();
   }
 });
+
+// TODO: почему не отправляется форма? Даже пустая? В isValid выше всегда false??????
