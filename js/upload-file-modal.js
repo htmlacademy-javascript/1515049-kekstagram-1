@@ -1,6 +1,7 @@
 import { isEscapeKey, addDocumentEscListener, removeDocumentEscListener } from './utils.js';
 import { formStateDefault } from './filters-user-photo.js';
 
+
 const body = document.querySelector('body');
 const uploadFileModal = document.querySelector('.img-upload__overlay');
 const controlUploadFile = document.querySelector('#upload-file');

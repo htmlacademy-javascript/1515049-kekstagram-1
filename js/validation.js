@@ -14,7 +14,7 @@ const ErrorMessages = {
 const form = document.querySelector('.img-upload__form');
 const textHashtags = form.querySelector('.text__hashtags');
 
-const pristine = new Pristine(form, {
+export const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'has-danger',
   successClass: 'has-success',

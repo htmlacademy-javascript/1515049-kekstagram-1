@@ -5,7 +5,6 @@
 import { drawsThumbnails } from './draws-thumbnails.js';
 import './upload-file-modal.js';
 import './open-full-size-photo.js';
-import './validation.js';
 import './filters-user-photo.js';
 
 drawsThumbnails();

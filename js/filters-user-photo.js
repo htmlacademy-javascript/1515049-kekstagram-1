@@ -1,3 +1,5 @@
+import { pristine } from './validation.js';
+
 const SCALE_STEP = 25;
 const SLIDER_STEP = 1;
 
@@ -38,6 +40,7 @@ const formStateDefault = () => {
   imgPreview.style.filter = '';
   effectLevelSlider.noUiSlider.reset();
   isEffectPreviewNoneOnFocus();
+  pristine.reset();
   if (isEffectPreviewNoneOnFocus) {
     slider.classList.add('hidden');
   }
