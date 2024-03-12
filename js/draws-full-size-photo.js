@@ -1,4 +1,7 @@
+import { createElementAndAddClass } from './utils.js';
+
 const COMMENTS_PER_PAGE = 5;
+
 
 /**
  * Создаёт аватар комментатора
@@ -7,8 +10,7 @@ const COMMENTS_PER_PAGE = 5;
  * @returns {HTMLImageElement}
  */
 const createCommentImage = (avatar, name) => {
-  const socialPicture = document.createElement('img');
-  socialPicture.className = 'social__picture';
+  const socialPicture = createElementAndAddClass('img', 'social__picture');
   socialPicture.src = avatar;
   socialPicture.alt = name;
   socialPicture.width = 35;
@@ -22,8 +24,7 @@ const createCommentImage = (avatar, name) => {
  * @returns {HTMLParagraphElement}
  */
 const createCommentText = (message) => {
-  const socialText = document.createElement('p');
-  socialText.className = 'social__text';
+  const socialText = createElementAndAddClass('p', 'social__text');
   socialText.textContent = message;
   return socialText;
 };
@@ -36,8 +37,7 @@ const createCommentText = (message) => {
  * @returns {HTMLLIElement}
  */
 const createCommentElement = ({avatar, message, name}) => {
-  const socialComment = document.createElement('li');
-  socialComment.className = 'social__comment';
+  const socialComment = createElementAndAddClass('li', 'social__comment');
 
   const socialPicture = createCommentImage(avatar, name);
   const socialText = createCommentText(message);

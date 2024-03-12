@@ -11,6 +11,33 @@ const Keys = {
 const isEscapeKey = (evt) => evt.key === Keys.ESCAPE || evt.key === Keys.ESC;
 
 /**
+ * Добавление обработчика события нажатия клавиши Escape к документу
+ */
+const addDocumentEscListener = (handler) => {
+  document.addEventListener('keydown', handler);
+};
+
+/**
+ * Удаление обработчика события нажатия клавиши Escape с документа
+ * @param handler обработчик события нажатия клавиши Escape
+ */
+const removeDocumentEscListener = (handler) => {
+  document.addEventListener('keydown', handler);
+};
+
+/**
+ * Создаёт элемент с классом
+ * @param element тег, который необходимо создать
+ * @param className имя класса для создаваемого тега
+ * @returns {HTMLAnchorElement | HTMLElement | HTMLAreaElement | HTMLAudioElement | HTMLBaseElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLButtonElement | HTMLCanvasElement | HTMLTableCaptionElement | HTMLTableColElement | HTMLDataElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDivElement | HTMLDListElement | HTMLEmbedElement | HTMLFieldSetElement | HTMLFormElement | HTMLHeadingElement | HTMLHeadElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLImageElement | HTMLInputElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement | HTMLLinkElement | HTMLMapElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement | HTMLObjectElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement | HTMLPictureElement | HTMLPreElement | HTMLProgressElement | HTMLScriptElement | HTMLSelectElement | HTMLSlotElement | HTMLSourceElement | HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTemplateElement | HTMLTextAreaElement | HTMLTimeElement | HTMLTitleElement | HTMLTableRowElement | HTMLTrackElement | HTMLUListElement | HTMLVideoElement}
+ */
+const createElementAndAddClass = (element, className) => {
+  const newElement = document.createElement(element);
+  newElement.className = className;
+  return newElement;
+};
+
+/**
  * Определяет является ли палиндромом переданная строка
  * @param string
  * @returns {boolean}
@@ -89,4 +116,4 @@ const getRandomNum = (min, max) => {
   return Math.floor(result);
 };
 
-export { getRandomNum, isEscapeKey };
+export { getRandomNum, isEscapeKey, createElementAndAddClass, addDocumentEscListener, removeDocumentEscListener };

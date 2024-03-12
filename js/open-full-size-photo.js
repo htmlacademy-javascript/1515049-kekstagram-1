@@ -1,12 +1,13 @@
-import { isEscapeKey } from './utils.js';
+import { addDocumentEscListener, isEscapeKey, removeDocumentEscListener } from './utils.js';
 import { renderFullSizePhoto } from './draws-full-size-photo.js';
 import { thumbnailsPhoto as allPhotos } from './draws-thumbnails.js';
 
+const body = document.querySelector('body');
 const drawingFullSizePhotoElement = document.querySelector('.big-picture');
 const drawingFullSizePhotoOpenElement = document.querySelector('.pictures');
 const drawingFullSizePhotoCloseElement = document.querySelector('.big-picture__cancel');
 
-const onFullSizePhotoEscKeydown = (evt) => {
+const handleDocumentEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     // eslint-disable-next-line no-use-before-define
@@ -15,14 +16,12 @@ const onFullSizePhotoEscKeydown = (evt) => {
 };
 
 const openFullSizePhoto = (evt) => {
-  document.body.classList.add('modal-open');
   const fullSizePhotoElement = evt.target;
   const fullSizePhotoElementLink = fullSizePhotoElement.closest('.picture');
 
   if (fullSizePhotoElementLink) {
-    if (!evt.defaultPrevented) {
-      evt.preventDefault();
-    }
+    body.classList.add('modal-open');
+    evt.preventDefault();
     drawingFullSizePhotoElement.classList.remove('hidden');
     const thumbnailId = Number(fullSizePhotoElementLink.id);
 
@@ -31,19 +30,16 @@ const openFullSizePhoto = (evt) => {
     if (selectedThumbnail) {
       renderFullSizePhoto(selectedThumbnail.id, selectedThumbnail.url, selectedThumbnail.likes, selectedThumbnail.comments, selectedThumbnail.description);
     }
+    addDocumentEscListener(handleDocumentEscKeydown);
   }
-
-  document.addEventListener('keydown', onFullSizePhotoEscKeydown);
 };
 
 const closeFullSizePhoto = () => {
-  document.body.classList.remove('modal-open');
+  body.classList.remove('modal-open');
   drawingFullSizePhotoElement.classList.add('hidden');
 
-  document.removeEventListener('keydown', onFullSizePhotoEscKeydown);
+  removeDocumentEscListener(handleDocumentEscKeydown);
 };
 
 drawingFullSizePhotoOpenElement.addEventListener('click', openFullSizePhoto);
 drawingFullSizePhotoCloseElement.addEventListener('click', closeFullSizePhoto);
-
-export { onFullSizePhotoEscKeydown };
